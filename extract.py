@@ -19,7 +19,7 @@ while N>0:
 	N = N//p
 	array.append(numSegments)
 
-for idx, numSegments in enumerate(array[10:]):
+for idx, numSegments in enumerate(array[::-1]):
 	img = image.copy()
 	segments = slic(image, n_segments = int(numSegments), sigma=5, start_label=1)
 	for label in tqdm(np.unique(segments), desc=str({"N": int(numSegments)})):
@@ -34,5 +34,5 @@ for idx, numSegments in enumerate(array[10:]):
 	img = img*255
 	img = img.astype(np.uint8)
 	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-	output_path = "./images/"+"0"*(len(str(len(array)))-len(str(idx)))+str(len(array)-idx)+".png"
+	output_path = "./images/"+"0"*(len(str(len(array)))-len(str(idx)))+str(idx)+".png"
 	cv2.imwrite(output_path, img)
